@@ -1,9 +1,8 @@
 package com.example.wycliffenyakemwa.mqttchatapp;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,12 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -31,16 +30,18 @@ public class MainActivity extends AppCompatActivity
 
 
 
-//    Context context;
-//    MqttMethods presenter;
-
 
     String TAG = "MyMQTTApp";
+    Button publish,connect;
+    MainActivity mqttInstance;
+    TextInputEditText topic, theMessage;
 
-    String clientId = MqttClient.generateClientId();
+    //String clientId = MqttClient.generateClientId();
+
+    Constants constants = new Constants();
     MqttConnectOptions options = new MqttConnectOptions();
     MqttAndroidClient client = new MqttAndroidClient(MainActivity.this, "tcp://broker.hivemq.com:1883",
-            clientId);
+            constants.getClientId());
 
 
     @Override
@@ -50,14 +51,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,12 +63,46 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        getSupportActionBar().setTitle("Publish here");
 
-//        presenter = new MqttMethods(context);
-//        presenter.connectMQTT();
+        //connect = (Button) findViewById(R.id.buttonConnect1);
+        publish = (Button) findViewById(R.id.buttonPublish);
+        topic = (TextInputEditText) findViewById( R.id.etTopic);
+        theMessage = (TextInputEditText) findViewById( R.id.etMessage);
 
-        connectMQTT();
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                connectMQTT();
+
+            }
+        });
+
+        publish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                Log.d(TAG , topic.getText().toString()  );
+                Log.d(TAG , theMessage.getText().toString()  );
+
+                if (client.isConnected()) {
+
+                    publishRetainedMQTT(topic.getText().toString() , theMessage.getText().toString() );
+                    Toast.makeText(MainActivity.this, "Message has been published, yeey ",Toast.LENGTH_LONG).show();
+                }
+                else{
+
+                    Toast.makeText(MainActivity.this, "No longer connected to broker",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
     }
+
 
 
     @Override
@@ -116,24 +143,30 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_subscribe) {
 
-        } else if (id == R.id.nav_slideshow) {
+            Intent myIntent = new Intent(MainActivity.this, Subscriber.class);
+            startActivity(myIntent);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_chat){
 
-        } else if (id == R.id.nav_share) {
+            Intent myIntent = new Intent(MainActivity.this, Chat.class);
+            startActivity(myIntent);
 
-        } else if (id == R.id.nav_send) {
-
-        }
+       }
+//       else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
     public void connectMQTT(){
@@ -145,14 +178,14 @@ public class MainActivity extends AppCompatActivity
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
                     Log.d(TAG, "onSuccess");
-                    Toast.makeText(MainActivity.this, asyncActionToken.getMessageId(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Connection Successfully Established",Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                     // Something went wrong e.g. connection timeout or firewall problems
                     Log.d(TAG, "onFailure");
-                    Toast.makeText(MainActivity.this, asyncActionToken.getResponse().toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Connection not established",Toast.LENGTH_LONG).show();
                 }
             });
         } catch (MqttException e) {
@@ -170,33 +203,14 @@ public class MainActivity extends AppCompatActivity
             MqttMessage message = new MqttMessage(encodedPayload);
             message.setRetained(true);
             client.publish(topic, message);
+
+
         } catch (UnsupportedEncodingException | MqttException e) {
             e.printStackTrace();
+            Toast.makeText(MainActivity.this, e.getMessage(),Toast.LENGTH_LONG).show();
+
         }
     }// end publish
 
 
-
-    public void subscribeMQTT(String topic, int qos){
-
-        try {
-            IMqttToken subToken = client.subscribe(topic, qos);
-            subToken.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // The message was published
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken,
-                                      Throwable exception) {
-                    // The subscription could not be performed, maybe the user was not
-                    // authorized to subscribe on the specified topic e.g. using wildcards
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-
-    }
 }

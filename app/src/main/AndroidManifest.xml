@@ -27,7 +27,7 @@
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 
-        <activity android:name=".Publisher" />
+        <activity android:name=".Chat" />
         <activity android:name=".Subscriber"></activity>
     </application>
 

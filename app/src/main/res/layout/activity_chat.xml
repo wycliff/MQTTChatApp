@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:orientation="vertical"
-    tools:context=".Subscriber">
+    tools:context=".Chat">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -46,26 +46,15 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/buttonConnect"
+        android:id="@+id/buttonPublish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="40dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:background="@color/colorPrimary"
-        android:text="connect"
-        android:textColor="#fff"
-        tools:layout_editor_absoluteX="27dp" />
-
-    <Button
-        android:id="@+id/buttonSubscribe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@color/colorPrimary"
-        android:text="Subscribe"
+        android:onClick="publishMessage"
+        android:text="Button"
         android:textColor="#fff"
         tools:layout_editor_absoluteX="27dp" />
 

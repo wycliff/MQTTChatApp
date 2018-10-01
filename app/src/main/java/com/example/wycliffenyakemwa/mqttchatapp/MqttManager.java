@@ -14,11 +14,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
 
-public class MqttMethods {
+public class MqttManager {
 
     Context _context;
 
-    public MqttMethods( Context context){
+    public MqttManager(Context context){
 
         this._context = context;
     }
