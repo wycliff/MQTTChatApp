@@ -1,3 +1,4 @@
+.idea/caches/build_file_checksums.ser
 # MQTTChatApp
 
 Simple MQTT Android Client with publisher and subscriber activities.
