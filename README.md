@@ -1,0 +1,2 @@
+# MQTTChatApp
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/137581c4aa7b4bfbbfe485dc5950591d)](https://app.codacy.com/app/wycliff/MQTTChatApp?utm_source=github.com&utm_medium=referral&utm_content=wycliff/MQTTChatApp&utm_campaign=Badge_Grade_Dashboard)
