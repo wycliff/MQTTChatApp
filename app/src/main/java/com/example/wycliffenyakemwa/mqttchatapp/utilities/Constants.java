@@ -1,4 +1,4 @@
-package com.example.wycliffenyakemwa.mqttchatapp;
+package com.example.wycliffenyakemwa.mqttchatapp.utilities;
 
 import android.Manifest;
 import android.content.Context;

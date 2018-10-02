@@ -1,4 +1,4 @@
-package com.example.wycliffenyakemwa.mqttchatapp;
+package com.example.wycliffenyakemwa.mqttchatapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.wycliffenyakemwa.mqttchatapp.utilities.Constants;
+import com.example.wycliffenyakemwa.mqttchatapp.R;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle("Publish here");
 
-        //connect = (Button) findViewById(R.id.buttonConnect1);
+        connect = (Button) findViewById(R.id.buttonConnect1);
         publish = (Button) findViewById(R.id.buttonPublish);
         topic = (TextInputEditText) findViewById( R.id.etTopic);
         theMessage = (TextInputEditText) findViewById( R.id.etMessage);
@@ -75,6 +78,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 connectMQTT();
+                Toast.makeText(MainActivity.this, constants.getClientId(),Toast.LENGTH_LONG).show();
+
 
             }
         });
@@ -99,6 +104,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
             }
+
         });
 
     }
@@ -154,9 +160,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(myIntent);
 
        }
-//       else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
+       else if (id == R.id.nav_chat) {
+
+            Intent myIntent = new Intent(MainActivity.this, Chat.class);
+            startActivity(myIntent);
+
+        }
+//        else if (id == R.id.nav_share) {
 //
 //        } else if (id == R.id.nav_send) {
 //
@@ -191,7 +201,7 @@ public class MainActivity extends AppCompatActivity
         } catch (MqttException e) {
             e.printStackTrace();
         }
-    }// end Connect
+    }
 
 
 

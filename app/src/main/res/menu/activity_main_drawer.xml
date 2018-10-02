@@ -10,17 +10,16 @@
         android:title="Subscribe" />
 
         <item
-            android:id="@+id/nav_publish"
-            android:title="" />
+            android:id="@+id/nav_chat"
+            android:title=" Live Chat" />
 
         <item
-            android:id="@+id/nav_chat"
-            android:title=" " />
+            android:id="@+id/nav_publish"
+            android:title="" />
         <item
             android:id="@+id/nav_blank"
             android:title=" " />
     </group>
-
 
     <!--<group android:checkableBehavior="single">-->
         <!--<item-->
@@ -40,7 +39,5 @@
             <!--android:icon="@drawable/ic_menu_manage"-->
             <!--android:title="Tools" />-->
     <!--</group>-->
-
-
 
 </menu>

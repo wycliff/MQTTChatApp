@@ -1,9 +1,7 @@
-package com.example.wycliffenyakemwa.mqttchatapp;
+package com.example.wycliffenyakemwa.mqttchatapp.activity;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.wycliffenyakemwa.mqttchatapp.utilities.Constants;
+import com.example.wycliffenyakemwa.mqttchatapp.R;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -43,7 +44,6 @@ public class Subscriber extends AppCompatActivity {
         theMessage = (TextInputEditText) findViewById( R.id.etMessage);
 
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("Subscribe here");
@@ -54,6 +54,7 @@ public class Subscriber extends AppCompatActivity {
             public void onClick(View v) {
 
                 connectMQTT();
+                Toast.makeText(Subscriber.this, constants.getClientId(),Toast.LENGTH_LONG).show();
 
             }
         });
@@ -61,7 +62,6 @@ public class Subscriber extends AppCompatActivity {
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 //connectMQTT();
                 Log.d(TAG , topic.getText().toString());
@@ -95,7 +95,6 @@ public class Subscriber extends AppCompatActivity {
 
                     Toast.makeText(Subscriber.this, "Connection broken",Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 
@@ -159,10 +158,7 @@ public class Subscriber extends AppCompatActivity {
 
             e.printStackTrace();
             Toast.makeText(Subscriber.this, e.getMessage(),Toast.LENGTH_LONG).show();
-
-
         }
-
     }
 
 
