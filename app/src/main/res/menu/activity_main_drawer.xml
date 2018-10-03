@@ -13,12 +13,8 @@
             android:id="@+id/nav_chat"
             android:title=" Live Chat" />
 
-        <item
-            android:id="@+id/nav_publish"
-            android:title="" />
-        <item
-            android:id="@+id/nav_blank"
-            android:title=" " />
+        <item android:title="" />
+        <item android:title=" " />
     </group>
 
     <!--<group android:checkableBehavior="single">-->

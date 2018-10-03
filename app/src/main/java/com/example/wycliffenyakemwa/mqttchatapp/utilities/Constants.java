@@ -1,12 +1,5 @@
 package com.example.wycliffenyakemwa.mqttchatapp.utilities;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.telephony.TelephonyManager;
-import android.widget.Toast;
-
 import org.eclipse.paho.client.mqttv3.MqttClient;
 
 public class Constants {

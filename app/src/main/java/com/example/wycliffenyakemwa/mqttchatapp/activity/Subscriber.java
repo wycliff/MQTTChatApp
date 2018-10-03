@@ -38,11 +38,10 @@ public class Subscriber extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscriber);
 
-        connect = (Button) findViewById(R.id.buttonConnect);
-        subscribe = (Button) findViewById(R.id.buttonSubscribe);
-        topic = (TextInputEditText) findViewById( R.id.etTopic);
-        theMessage = (TextInputEditText) findViewById( R.id.etMessage);
-
+        connect = findViewById(R.id.buttonConnect);
+        subscribe = findViewById(R.id.buttonSubscribe);
+        topic = findViewById( R.id.etTopic);
+        theMessage = findViewById( R.id.etMessage);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -78,7 +77,7 @@ public class Subscriber extends AppCompatActivity {
                         }
 
                         @Override
-                        public void messageArrived(String topic, MqttMessage message) throws Exception {
+                        public void messageArrived(String topic, MqttMessage message) {
 
                             String stringMessage =  new String(message.getPayload());
                             theMessage.setText(stringMessage);

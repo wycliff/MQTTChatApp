@@ -2,7 +2,6 @@ package com.example.wycliffenyakemwa.mqttchatapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,16 +53,16 @@ public class MessageAdapter extends BaseAdapter {
 
         if (message.isBelongsToCurrentUser()) { // this message was sent by us so let's create a basic chat bubble on the right
             convertView = messageInflater.inflate(R.layout.my_message, null);
-            holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
+            holder.messageBody = convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
             holder.messageBody.setText(message.getPyload());
         }
 
         else { // this message was sent by someone else so let's create an advanced chat bubble on the left
             convertView = messageInflater.inflate(R.layout.their_message, null);
-            holder.avatar = (View) convertView.findViewById(R.id.avatar);
-            holder.topic = (TextView) convertView.findViewById(R.id.topic);
-            holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
+            holder.avatar = convertView.findViewById(R.id.avatar);
+            holder.topic = convertView.findViewById(R.id.topic);
+            holder.messageBody = convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
 
             holder.topic.setText(message.getTopic());

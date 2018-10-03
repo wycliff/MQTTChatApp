@@ -2,13 +2,11 @@ package com.example.wycliffenyakemwa.mqttchatapp.activity;
 
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -56,10 +54,10 @@ public class Chat extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("Live Chat");
 
-        editText = (EditText) findViewById(R.id.editText);
+        editText = findViewById(R.id.editText);
 
         messageAdapter = new MessageAdapter(this);
-        messagesView = (ListView) findViewById(R.id.messages_view);
+        messagesView = findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
         connectMQTT();
@@ -75,7 +73,7 @@ public class Chat extends AppCompatActivity {
                     connectMQTT(); // to reconnect
                 }
                 @Override
-                public void messageArrived(String topic, MqttMessage message) throws Exception {
+                public void messageArrived(String topic, MqttMessage message) {
                     String stringMessage =  new String(message.getPayload());
                     messageObject = new Message(stringMessage , topic, 2, false);
                     messageAdapter.add(messageObject);
@@ -105,7 +103,7 @@ public class Chat extends AppCompatActivity {
                     }
 
                     @Override
-                    public void messageArrived(String topic, MqttMessage message) throws Exception {
+                    public void messageArrived(String topic, MqttMessage message) {
                         String stringMessage =  new String(message.getPayload());
                         messageObject = new Message(stringMessage , topic, 2, false);
                         messageAdapter.add(messageObject);
