@@ -1,8 +1,11 @@
+// module level (this is all groovy)
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 28
-    defaultConfig {
+    compileSdkVersion 28  //
+
+    defaultConfig {  // method call  with closure.
         applicationId "com.example.wycliffenyakemwa.mqttchatapp"
         minSdkVersion 15
         targetSdkVersion 28
@@ -12,7 +15,14 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true  //turns on proguard, removes code from linked libs that app aint using.
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled true  //turns on proguard, removes code from linked libs that app aint using.
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -27,9 +37,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    //implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.0.2'
-
+    // MQTT
     implementation('org.eclipse.paho:org.eclipse.paho.android.service:1.0.2') {
         exclude module: 'support-v4'
     }
+
+}
+
+realm {
+    syncEnabled = true
 }

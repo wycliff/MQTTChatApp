@@ -28,7 +28,8 @@
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 
         <activity android:name=".activity.Chat" />
-        <activity android:name=".activity.Subscriber"></activity>
+        <activity android:name=".activity.Subscriber" />
+        <activity android:name=".activity.RealmClass"></activity>
     </application>
 
 </manifest>

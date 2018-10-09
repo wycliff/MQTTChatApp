@@ -122,6 +122,8 @@ public class Chat extends AppCompatActivity {
     }
 
 
+
+
     // send message (publish)
     public void sendMessage(View view) {
         connectMQTT();
@@ -222,6 +224,7 @@ public class Chat extends AppCompatActivity {
             Toast.makeText(Chat.this, e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
+
 
 
     public void publishRetainedMQTT(String topic, String payload){
